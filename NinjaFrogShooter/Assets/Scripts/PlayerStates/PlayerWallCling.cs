@@ -6,6 +6,7 @@ public class PlayerWallCling : PlayerStates
 {
 	[Header("PlayerWallCling")]
 	[SerializeField] private float fallFactor = 0.5f;
+	private int WallClingAnim = Animator.StringToHash("WallCling");
 
 	protected override void GetInput()
 	{
@@ -62,5 +63,10 @@ public class PlayerWallCling : PlayerStates
 				}
 			}
 		}
+	}
+
+	public override void SetAnimation()
+	{
+		m_Animator.SetBool(WallClingAnim, m_playerController.Conditions.IsWallCling);
 	}
 }

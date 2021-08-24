@@ -24,7 +24,13 @@ public class PlayerMotor : MonoBehaviour
 			{
                 states.LocalInput();
                 states.ExcuteState();
+                states.SetAnimation();
 			}
 		}
     }
+
+    public void SpawnPlayer(Transform newPosition)
+	{
+        transform.position = newPosition.position;
+	}
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
 
     public float Gravity => gravity;
     public Vector2 Force => m_force;
+    public float Friction { get; set; }
     #endregion
 
     #region Collision
@@ -48,6 +50,8 @@ public class PlayerController : MonoBehaviour
     private float m_padding = 0.05f; // Use a tiny number, like 0.1f
     public bool FacingRight { get; set; }
     private int facingRightDirection = 1;
+
+    private PlatformMoving m_platformMoving;
     #endregion
 
     #region PlayerConditions
@@ -73,6 +77,8 @@ public class PlayerController : MonoBehaviour
         GetFaceDirection();
 
         CollisionBellow();
+        CollisionPlatform();
+
         CollisionAbove();
         transform.Translate(m_movePosition, Space.Self);
 
@@ -94,10 +100,14 @@ public class PlayerController : MonoBehaviour
     {
         m_WallMultiplier = fallM;
     }
-    #endregion
+	public void AddHorizontalForce(float xForce)
+	{
+		m_force.x += xForce;
+	}
+	#endregion
 
-    #region Set Movement Gravity when Start
-    private void StartMovement()
+	#region Set Movement Gravity when Start
+	private void StartMovement()
 	{
         m_movePosition = m_force * Time.deltaTime;
         m_conditions.Reset();
@@ -147,6 +157,8 @@ public class PlayerController : MonoBehaviour
 	#region RayCast Collision Bellow
     private void CollisionBellow()
 	{
+        Friction = 0f;
+
         if (m_movePosition.y < -0.0001f)
         {
             m_conditions.IsFalling = true;
@@ -185,7 +197,7 @@ public class PlayerController : MonoBehaviour
 
 			if (hit)
 			{
-				if (m_force.y > 0)
+                if (m_force.y > 0)
 				{
                     m_movePosition.y = m_force.y * Time.deltaTime;
                     m_conditions.IsCollidingBellow = false;
@@ -202,8 +214,20 @@ public class PlayerController : MonoBehaviour
 				{
                     m_movePosition.y = 0f;
 				}
-			}
-		}
+
+                GameObject hitObject = hit.collider.gameObject;
+
+                if (hitObject.GetComponent<SpecialSurface>() != null)
+                {
+                    Friction = hitObject.GetComponent<SpecialSurface>().Friction;
+                }
+
+                if (hitObject.GetComponent<PlatformMoving>() != null)
+                {
+                    m_platformMoving = hitObject.GetComponent<PlatformMoving>();
+                }
+            }
+        }
     }
     #endregion
 
@@ -218,6 +242,7 @@ public class PlayerController : MonoBehaviour
             FacingRight = true;
             facingRightDirection = 1;
             CollisionHorizontal(facingRightDirection);
+            transform.localScale = new Vector3(1,1,1);
         }
         else if (m_force.x < -0.0001f)
 
@@ -225,6 +250,7 @@ public class PlayerController : MonoBehaviour
             FacingRight = false;
             facingRightDirection = -1;
             CollisionHorizontal(facingRightDirection);
+            transform.localScale = new Vector3(-1, 1, 1);
         }
     }
     #endregion
@@ -299,6 +325,24 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    #endregion
+	#endregion
 
+	#region Collision Platform
+	private void CollisionPlatform()
+    {
+        if (m_platformMoving == null)
+        {
+            return;
+        }
+        if (m_platformMoving.CollingWithPlayer)
+        {
+            if (m_platformMoving.MoveSpeed != 0)
+            {
+                Vector3 moveDirection = m_platformMoving.Direction == PathFollow.MoveDirections.RIGHT
+                                        ? Vector3.right : Vector3.left;
+                transform.Translate(moveDirection * m_platformMoving.MoveSpeed * Time.deltaTime);
+            }
+        }
+    }
+	#endregion
 }

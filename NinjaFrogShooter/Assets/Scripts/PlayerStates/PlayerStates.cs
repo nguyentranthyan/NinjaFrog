@@ -7,6 +7,7 @@ public class PlayerStates : MonoBehaviour
     protected float m_horizontalInput; 
     protected float m_verticalInput;
 	protected PlayerController m_playerController;
+	protected Animator m_Animator;
 
 	protected virtual void Start()
 	{
@@ -19,6 +20,12 @@ public class PlayerStates : MonoBehaviour
 	protected virtual void InitStart()
 	{
 		m_playerController = GetComponent<PlayerController>();
+		m_Animator = GetComponent<Animator>();
+	}
+
+	protected virtual void GetInput()
+	{
+
 	}
 
 	public virtual void ExcuteState()
@@ -32,7 +39,7 @@ public class PlayerStates : MonoBehaviour
 		GetInput();
 	}
 
-	protected virtual void GetInput()
+	public virtual void SetAnimation()
 	{
 
 	}
