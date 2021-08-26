@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerStates : MonoBehaviour
 {
@@ -34,8 +35,8 @@ public class PlayerStates : MonoBehaviour
 	}
     public virtual void LocalInput()
 	{
-		m_horizontalInput = Input.GetAxisRaw("Horizontal");
-		m_verticalInput = Input.GetAxisRaw("Vertical");
+		m_horizontalInput = CrossPlatformInputManager.GetAxisRaw("Horizontal");
+		m_verticalInput = CrossPlatformInputManager.GetAxisRaw("Vertical");
 		GetInput();
 	}
 

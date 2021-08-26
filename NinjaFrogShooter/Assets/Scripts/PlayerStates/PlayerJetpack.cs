@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerJetpack : PlayerStates
 {
@@ -28,12 +29,12 @@ public class PlayerJetpack : PlayerStates
 
 	protected override void GetInput()
 	{
-		if (Input.GetButton("Fire1"))
+		if (CrossPlatformInputManager.GetButton("Jetpack"))
 		{
 			JetPack();
 		}
 
-		if (Input.GetButtonUp("Fire1"))
+		if (CrossPlatformInputManager.GetButtonUp("Jetpack"))
 		{
 			EndJetPack();
 		}

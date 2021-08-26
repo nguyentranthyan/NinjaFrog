@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8717056105773722900}
   - component: {fileID: 8717056105773722907}
   - component: {fileID: 8717056105773722901}
+  - component: {fileID: 8680139518231576222}
+  - component: {fileID: 3087942155988300265}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Untagged
@@ -102,3 +104,31 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8680139518231576222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8717056105773722906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: add890bcdf6781842ab34846f2e3dd50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points: []
+  m_moveSpeed: 5
+  m_minDistanceToPoint: 0.01
+--- !u!114 &3087942155988300265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8717056105773722906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9f7cbe4ceec0644db86d536a774ddef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instanceKill: 0

@@ -50,3 +50,12 @@ TagManager:
   - name: Player
     uniqueID: 2756919939
     locked: 0
+  - name: Gun
+    uniqueID: 885986511
+    locked: 0
+  - name: Gui
+    uniqueID: 3700931667
+    locked: 0
+  - name: Transition
+    uniqueID: 4118951405
+    locked: 0

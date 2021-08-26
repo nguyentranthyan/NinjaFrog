@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerJump : PlayerStates
 {
@@ -21,7 +22,7 @@ public class PlayerJump : PlayerStates
 
 	protected override void GetInput()
 	{
-		if (Input.GetButtonDown("Jump"))
+		if (CrossPlatformInputManager.GetButtonDown("Jump"))
 		{
 			Jump();
 		}

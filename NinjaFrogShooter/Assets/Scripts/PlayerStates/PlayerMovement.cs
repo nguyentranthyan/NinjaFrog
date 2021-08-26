@@ -6,12 +6,20 @@ public class PlayerMovement : PlayerStates
 {
 	[Header("Player Movement")]
 	[SerializeField] private float m_speed = 5f;
+	public float Speed { get; set; }
+	public float InitialSpeed => m_speed;
 
 	private float m_hMove;
 	private float m_movement;
 
 	private int idleAnim = Animator.StringToHash("Idle");
 	private int runAnim = Animator.StringToHash("Run");
+
+	protected override void InitStart()
+	{
+		base.InitStart();
+		Speed = m_speed;
+	}
 
 	protected override void GetInput()
 	{

@@ -16,6 +16,9 @@ public class UiManager : Singleton<UiManager>
     [Header("Heart")]
     [SerializeField] private GameObject[] playerLifes;
 
+    [Header("Ammo")]
+    [SerializeField] private Text ammoText;
+
     // Update is called once per frame
     void Update()
     {
@@ -50,14 +53,21 @@ public class UiManager : Singleton<UiManager>
         }
     }
 
+    private void OnPlayerGun(int m_projectileRemaining)
+    {
+        ammoText.text = "Ammo: " + m_projectileRemaining + "v";
+    }
+
     private void OnEnable()
 	{
         PlayerHealth.OnLifesChange += OnPlayerLives;
-	}
+        Gun.OnAmmoChange += OnPlayerGun;
+    }
 
 	private void OnDisable()
 	{
         PlayerHealth.OnLifesChange -= OnPlayerLives;
+        Gun.OnAmmoChange -= OnPlayerGun;
     }
 
    

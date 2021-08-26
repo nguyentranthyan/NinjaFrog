@@ -10,7 +10,6 @@ public class LevelManager : MonoBehaviour
     [Header("LevelManager")]
     [SerializeField] private Transform levelStartPoint;
     [SerializeField] private GameObject playerPrefabs;
-    
 
     private PlayerMotor m_currentPlayer;
 

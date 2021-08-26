@@ -34,7 +34,7 @@ public class PathFollow : MonoBehaviour
 		Move();
 	}
 
-	private void Move()
+	public virtual void Move()
 	{
 		//set first position
 		if (!m_move)
