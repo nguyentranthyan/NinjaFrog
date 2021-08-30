@@ -45,3 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelStartPoint: {fileID: 0}
   playerPrefabs: {fileID: 1917960574344345296, guid: 19048297f545bd54aa9da55d307d0dd2, type: 3}
+  m_countDeath: 3
+  nameScene: GameOver

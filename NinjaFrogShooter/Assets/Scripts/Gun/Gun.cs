@@ -20,8 +20,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private int m_magazineSize = 30;
     [SerializeField] private bool autoReload = true;
     [SerializeField] private float m_reloadTimer = 1f;
-    [SerializeField] private int fireAnim = Animator.StringToHash("Fire");
-
+   
     private bool m_isReLoading;
     private int m_projectileRemaining;
 
@@ -71,9 +70,6 @@ public class Gun : MonoBehaviour
         ProjectTile projectTile = newProjectile.GetComponent<ProjectTile>();
         projectTile.GunEquipp = this;
         projectTile.SetDirection(GunController.PlayerController.FacingRight ? Vector3.right : Vector3.left);
-      
-        //SetAnimator
-        m_animator.SetTrigger(fireAnim);
 	}
 
     /// <summary>

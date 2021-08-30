@@ -16,7 +16,7 @@ public class GunController : MonoBehaviour
 	private void Start()
 	{
 		PlayerController = GetComponent<PlayerController>();
-		//EquippGun(m_gun);
+		EquippGun(m_gun);
 	}
 	private void Update()
 	{

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObstacleComponent : MonoBehaviour, IDamageable
 {
-	[Header("Setting")]
+	[Header("ObstacleComponent")]
 	[SerializeField] protected bool instanceKill;
 
 	public virtual void Damage(PlayerMotor player)

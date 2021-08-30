@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,8 +8,9 @@ using UnityEngine.SceneManagement;
 public class CoinManager : MonoBehaviour
 {
     [SerializeField] private Text CoinText;
-
-    private int coinCollect;
+	[SerializeField] private int levelIndex;
+	private int coinCollect;
+	public static Action<int> OnLevelComplete;
 
 	// Update is called once per frame
 	void Update()
@@ -22,12 +24,13 @@ public class CoinManager : MonoBehaviour
 	{
 		if (transform.childCount == 0)
 		{
-            Invoke("ChangeScene", 1);
+			//Invoke("ChangeScene", 1);
+			OnLevelComplete?.Invoke(levelIndex);
 		}
 	}
 
-    void ChangeScene()
-	{
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
+	//   void ChangeScene()
+	//{
+	//       SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+	//   }
 }
