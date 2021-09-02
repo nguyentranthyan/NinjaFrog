@@ -7,6 +7,6 @@ public class Blade : ObstacleComponent
 	public override void Damage(PlayerMotor player)
 	{
 		base.Damage(player);
-		Debug.Log("Blade");
+		//Debug.Log("Blade");
 	}
 }

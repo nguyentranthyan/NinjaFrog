@@ -23,6 +23,7 @@ public class Jumper : MonoBehaviour
 		{
 			OnJump?.Invoke(jumpHeight);
             m_animator.SetTrigger(m_jumper);
+			SoundManager.Instance.PlaySound(AudioLibrary.Instance.JumpClip);
 		}
 	}
 }

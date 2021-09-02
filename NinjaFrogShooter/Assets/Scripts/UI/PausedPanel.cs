@@ -7,6 +7,7 @@ public class PausedPanel : MonoBehaviour
 {
 	[SerializeField] private GameObject m_PausePanel;
 	[SerializeField] private GameObject m_InstructionPanel;
+	[SerializeField] private GameObject m_SettingSoundPanel;
 
 	private void Start()
 	{
@@ -24,6 +25,8 @@ public class PausedPanel : MonoBehaviour
 		else
 		{
 			m_PausePanel.SetActive(false);
+			m_InstructionPanel.SetActive(false);
+			m_SettingSoundPanel.SetActive(false);
 			Time.timeScale = 1f;
 		}	
 	}
@@ -32,6 +35,22 @@ public class PausedPanel : MonoBehaviour
 	{
 		Time.timeScale = 1;
 		SceneManager.LoadScene(0);
+	}
+
+	public void OnButtonAudioClicked()
+	{
+		if (!m_SettingSoundPanel.activeInHierarchy)
+		{
+			m_SettingSoundPanel.SetActive(true);
+			Time.timeScale = 0f;
+		}
+		else
+		{
+			m_InstructionPanel.SetActive(false);
+			m_PausePanel.SetActive(false);
+			m_SettingSoundPanel.SetActive(false);
+			Time.timeScale = 1f;
+		}
 	}
 
 	public void OnButtonInstructionCliked()
@@ -45,6 +64,7 @@ public class PausedPanel : MonoBehaviour
 		{
 			m_InstructionPanel.SetActive(false);
 			m_PausePanel.SetActive(false);
+			m_SettingSoundPanel.SetActive(false);
 			Time.timeScale = 1f;
 		}
 	}

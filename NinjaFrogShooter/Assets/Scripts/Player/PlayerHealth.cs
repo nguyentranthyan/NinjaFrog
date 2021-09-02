@@ -53,6 +53,7 @@ public class PlayerHealth : MonoBehaviour
 			OnDeath?.Invoke(gameObject.GetComponent<PlayerMotor>());
 		}
 		UpdateLifesUI();
+		SoundManager.Instance.PlaySound(AudioLibrary.Instance.PlayerHurtClip);
 	}
 
 	public void KillPlayer()
@@ -60,6 +61,7 @@ public class PlayerHealth : MonoBehaviour
 		m_currentLifes = 0;
 		OnDeath?.Invoke(gameObject.GetComponent<PlayerMotor>());
 		UpdateLifesUI();
+		SoundManager.Instance.PlaySound(AudioLibrary.Instance.PlayerDeathClip);
 	}
 
 	public void Revive()

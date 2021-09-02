@@ -53,6 +53,7 @@ public class Gun : MonoBehaviour
             m_nextShortTime = Time.time + m_msBetweenShoots / 1000f;
             FireProjectile();
             m_projectileRemaining--;
+            SoundManager.Instance.PlaySound(AudioLibrary.Instance.ProjectileClip);
             UpdateAmmoUI();
         }
     }

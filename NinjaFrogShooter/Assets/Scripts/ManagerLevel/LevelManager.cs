@@ -13,7 +13,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Transform levelStartPoint;
     [SerializeField] private GameObject playerPrefabs;
     [SerializeField] private int m_countDeath = 3;
-    [SerializeField] private string nameScene;
+    [SerializeField] private string SceneGameOver;
+    [SerializeField] private string SceneGameComplete;
 
     [Header("Levels")]
     [SerializeField] private int startingLevel = 0;
@@ -64,18 +65,7 @@ public class LevelManager : MonoBehaviour
     private void PlayerDeath(PlayerMotor player)
     {
         m_currentPlayer.gameObject.SetActive(false);
-        //StartCoroutine(IECheckRevivePlayer());
-        m_countDeath -= 1;
-
-        if (m_countDeath > 0)
-        {
-            RevivePlayer();
-        }
-
-        else if (m_countDeath <= 0)
-        {
-            SceneManager.LoadScene(nameScene);
-        }
+        StartCoroutine(IECheckRevivePlayer());
     }
 
     IEnumerator IECheckRevivePlayer()
@@ -90,7 +80,7 @@ public class LevelManager : MonoBehaviour
 
         else if(m_countDeath <= 0)
         {
-            SceneManager.LoadScene(nameScene);
+            SceneManager.LoadScene(SceneGameOver);
 		}
     }
     private void MovePlayerToStartPosition(Transform newSpawnPoint)
@@ -105,8 +95,15 @@ public class LevelManager : MonoBehaviour
     {
         GameManager.Instance.GameState = GameManager.GameStates.LevelLoad;
         _nextLevel = GameManager.Instance.CurrentLevelCompleted + 1;
-        InitLevel(_nextLevel);
-        MovePlayerToStartPosition(levels[_nextLevel].SpawnPoint);
+        if (_nextLevel > 3)
+		{
+            SceneManager.LoadScene(SceneGameComplete);
+        }
+		else
+		{
+            InitLevel(_nextLevel);
+            MovePlayerToStartPosition(levels[_nextLevel].SpawnPoint);
+        }
     }
 
     private void OnEnable()

@@ -16,11 +16,13 @@ public class ObstacleComponent : MonoBehaviour, IDamageable
 				//kill method
 				Camera2DShake.Instance.Shake();
 				player.GetComponent<PlayerHealth>().KillPlayer();
+				SoundManager.Instance.PlaySound(AudioLibrary.Instance.PlayerDeathClip);
 			}
 			else
 			{
 				Camera2DShake.Instance.Shake();
 				player.GetComponent<PlayerHealth>().LoseLifes();
+				SoundManager.Instance.PlaySound(AudioLibrary.Instance.PlayerHurtClip);
 			}
 		}
 	}

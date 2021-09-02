@@ -35,6 +35,7 @@ public class ProjectTilePooler : MonoBehaviour
 		{
             OnProjectileCollision?.Invoke(hit.collider);
             gameObject.SetActive(false);
-		}
+            SoundManager.Instance.PlaySound(AudioLibrary.Instance.ProjectileCollisionClip);
+        }
 	}
 }
