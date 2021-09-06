@@ -13,7 +13,6 @@ public class PlayerJetpack : PlayerStates
 	public float FuelLeft { get; set; }
 	public float InitialFuel => jetpackFuel;
 
-	private float m_fuelDurectionLeft;
 	private bool m_stillHaveFuel = true;
 
 	private int jetpackAnim = Animator.StringToHash("Jetpack");
@@ -22,9 +21,8 @@ public class PlayerJetpack : PlayerStates
 	{
 		base.InitStart();
 		JetpackFuel = jetpackFuel;
-		m_fuelDurectionLeft = jetpackFuel;
 		FuelLeft = jetpackFuel;
-		UiManager.Instance.UpdateFuel(FuelLeft, JetpackFuel);
+		GameManager.Instance.UpdateFuel(FuelLeft, JetpackFuel);
 	}
 
 	protected override void GetInput()
@@ -72,7 +70,7 @@ public class PlayerJetpack : PlayerStates
 		{
 			fuelConsumed -= Time.deltaTime * 20;
 			FuelLeft = fuelConsumed;
-			UiManager.Instance.UpdateFuel(FuelLeft, JetpackFuel);
+			GameManager.Instance.UpdateFuel(FuelLeft, JetpackFuel);
 			yield return null;
 		}	
 	}
@@ -85,7 +83,7 @@ public class PlayerJetpack : PlayerStates
 		{
 			fuel += Time.deltaTime * 5;
 			FuelLeft = fuel;
-			UiManager.Instance.UpdateFuel(FuelLeft, JetpackFuel);
+			GameManager.Instance.UpdateFuel(FuelLeft, JetpackFuel);
 
 			if (!m_stillHaveFuel && fuel > 0.2f)
 			{

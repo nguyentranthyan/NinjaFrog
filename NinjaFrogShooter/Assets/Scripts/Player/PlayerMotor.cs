@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,5 +33,10 @@ public class PlayerMotor : MonoBehaviour
     public void SpawnPlayer(Transform newPosition)
 	{
         transform.position = newPosition.position;
+	}
+
+	internal void SpawnPlayer(Vector2 lastCheckPointPos)
+	{
+		throw new NotImplementedException();
 	}
 }

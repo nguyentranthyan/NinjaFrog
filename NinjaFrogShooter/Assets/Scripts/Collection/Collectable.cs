@@ -15,6 +15,20 @@ public class Collectable : MonoBehaviour
 		m_collider2D = GetComponent<Collider2D>();
 	}
 
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.gameObject.GetComponent<PlayerMotor>() != null)
+		{
+			m_playerMotor = collision.gameObject.GetComponent<PlayerMotor>();
+			CollectLogic();
+		}
+	}
+
+	private void OnTriggerExit2D(Collider2D collision)
+	{
+		m_playerMotor = null;
+	}
+
 	private void CollectLogic()
 	{
 		if (!CanPicked())
@@ -23,6 +37,7 @@ public class Collectable : MonoBehaviour
 		}
 		SoundManager.Instance.PlaySound(AudioLibrary.Instance.CollectableClip);
 		Collect();
+		
 		DisableCollectable();
 	}
 
@@ -40,19 +55,5 @@ public class Collectable : MonoBehaviour
 	private bool CanPicked()
 	{
 		return m_playerMotor != null;
-	}
-
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
-		if(collision.gameObject.GetComponent<PlayerMotor>() != null)
-		{
-			m_playerMotor = collision.gameObject.GetComponent<PlayerMotor>();
-			CollectLogic();
-		}
-	}
-
-	private void OnTriggerExit2D(Collider2D collision)
-	{
-		m_playerMotor = null;
 	}
 }

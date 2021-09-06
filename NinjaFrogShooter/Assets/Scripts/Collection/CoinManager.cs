@@ -32,12 +32,13 @@ public class CoinManager : MonoBehaviour
 		if (transform.childCount == 0)
 		{
 			txtComplete.gameObject.SetActive(true);
-			Invoke(nameof(ChangeScene), 2f);
+			StartCoroutine(ChangeScene());
 		}
 	}
 
-	private void ChangeScene()
+	IEnumerator ChangeScene()
 	{
+		yield return new WaitForSeconds(.5f);
 		OnLevelComplete?.Invoke(levelIndex);
 	}
 }

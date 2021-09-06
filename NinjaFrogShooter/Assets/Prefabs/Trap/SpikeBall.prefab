@@ -308,7 +308,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1475887940716720635}
-  - component: {fileID: 1475887940716720634}
+  - component: {fileID: 6585334318410916357}
   m_Layer: 0
   m_Name: SpikeBall
   m_TagString: Untagged
@@ -337,20 +337,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1475887940716720634
-MonoBehaviour:
+--- !u!95 &6585334318410916357
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1475887940716720636}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38acc59179003d942bb992d7d9924fed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotateAxis: {x: 0, y: 0, z: 1}
-  speed: 10
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5b06f51974734304187ad7ab60dd7832, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1475887940988972611
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Coin : Collectable
 {
-
 	public override void Collect()
 	{
+		SFXManager.Instance.ShowItemSparkle(this.gameObject.transform.position);
 		AddCoin();
 	}
 
 	private void AddCoin()
 	{
-		Destroy(gameObject);
+		GameManager.Instance.UpdateCoin();
 	}
 }

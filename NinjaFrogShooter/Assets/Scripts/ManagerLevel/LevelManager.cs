@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : Singleton<LevelManager>
 {
     public static Action<PlayerMotor> OnPlayerSpawn;
     private PlayerMotor m_currentPlayer;
 
     [Header("LevelManager")]
     [SerializeField] private Transform levelStartPoint;
+
     [SerializeField] private GameObject playerPrefabs;
     [SerializeField] private int m_countDeath = 3;
     [SerializeField] private string SceneGameOver;
@@ -20,7 +21,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int startingLevel = 0;
     [SerializeField] private Level[] levels;
     private int _nextLevel;
-    
+
     private void Awake()
 	{
         SpawnPlayer(playerPrefabs, levels[startingLevel].SpawnPoint);
@@ -31,7 +32,14 @@ public class LevelManager : MonoBehaviour
         OnPlayerSpawn?.Invoke(m_currentPlayer);
     }
 
-    private void InitLevel(int levelIndex)
+	private void Update()
+	{
+		if(Input.GetMouseButtonDown(1)){
+            RevivePlayer();
+        }
+	}
+
+	private void InitLevel(int levelIndex)
     {
         foreach (Level level in levels)
         {
@@ -56,34 +64,35 @@ public class LevelManager : MonoBehaviour
 		if (m_currentPlayer != null)
 		{
             m_currentPlayer.gameObject.SetActive(true);
-            m_currentPlayer.SpawnPlayer(levelStartPoint);
+            //m_currentPlayer.SpawnPlayer(levelStartPoint);
+            m_currentPlayer.transform.position = GameManager.Instance.lastCheckPointPos;
             m_currentPlayer.GetComponent<PlayerHealth>().ResetLifes();
             m_currentPlayer.GetComponent<PlayerHealth>().Revive();
         }
     }
 
-    private void PlayerDeath(PlayerMotor player)
+    public void PlayerDeath(PlayerMotor player)
     {
         m_currentPlayer.gameObject.SetActive(false);
         StartCoroutine(IECheckRevivePlayer());
     }
 
-    IEnumerator IECheckRevivePlayer()
+	IEnumerator IECheckRevivePlayer()
 	{
-        yield return new WaitForSeconds(1f);
-        m_countDeath -= 1;
+		yield return new WaitForSeconds(1f);
+		m_countDeath -= 1;
 
 		if (m_countDeath > 0)
 		{
-            RevivePlayer();
-        }
-
-        else if(m_countDeath <= 0)
-        {
-            SceneManager.LoadScene(SceneGameOver);
+			RevivePlayer();
 		}
-    }
-    private void MovePlayerToStartPosition(Transform newSpawnPoint)
+
+		else if (m_countDeath <= 0)
+		{
+			SceneManager.LoadScene(SceneGameOver);
+		}
+	}
+	private void MovePlayerToStartPosition(Transform newSpawnPoint)
     {
         if (m_currentPlayer!= null)
         {

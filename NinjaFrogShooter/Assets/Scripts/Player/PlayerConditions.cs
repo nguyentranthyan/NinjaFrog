@@ -15,6 +15,7 @@ public class PlayerConditions : MonoBehaviour
     public bool IsWallCling { get; set; }
     public bool IsJetpacking { get; set; }
     public bool IsJumping { get; set; }
+    public bool IsHit { get; set; }
 
     public void Reset()
     {
@@ -23,5 +24,6 @@ public class PlayerConditions : MonoBehaviour
         IsCollidingLeft = false;
         IsCollidingRight = false;
         IsFalling = false;
+        IsHit = false;
     }
 }

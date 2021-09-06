@@ -6,6 +6,7 @@ public class PotionHealth : Collectable
 {
 	public override void Collect()
 	{
+		SFXManager.Instance.ShowItemSparkle(this.gameObject.transform.position);
 		AddLifte();
 	}
 

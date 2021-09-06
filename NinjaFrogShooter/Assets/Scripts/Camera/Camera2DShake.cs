@@ -6,7 +6,7 @@ using UnityEngine;
 public class Camera2DShake : Singleton<Camera2DShake>
 {
     [Header("Setting")]
-    [SerializeField] private float shakeVibrato = 10f;
+    [SerializeField] private float shakeVibrato = 2f;
     [SerializeField] private float shakeRandomness = 0.2f;
     [SerializeField] private float shakeTime = 0.01f;
 

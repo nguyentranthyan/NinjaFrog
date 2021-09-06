@@ -10,6 +10,7 @@ public class EquippGun : Collectable
 	public override void Collect()
 	{
 		CollectGuns();
+		SFXManager.Instance.ShowGunSparkle(this.gameObject.transform.position);
 	}
 
 	private void CollectGuns()

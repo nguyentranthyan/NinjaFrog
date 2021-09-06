@@ -22,7 +22,11 @@ public class EnemyDamage : ObstacleComponent
 		{
 			Camera2DShake.Instance.Shake();
 			objectCollided.GetComponent<PlayerHealth>().LoseLifes();
-			SoundManager.Instance.PlaySound(AudioLibrary.Instance.PlayerHurtClip);
+			SoundManager.Instance.PlaySound(AudioLibrary.Instance.ProjectileCollisionClip);
+		}
+		else
+		{
+			SoundManager.Instance.PlaySound(AudioLibrary.Instance.ProjectileCollisionClip);
 		}
 	}
 

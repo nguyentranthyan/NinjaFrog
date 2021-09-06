@@ -48,6 +48,5 @@ public class AITurret : MonoBehaviour
 		//Get projectile
 		Bullet bullet = newProjectile.GetComponent<Bullet>();
 		bullet.SetDirection(facingRight ? Vector3.right : Vector3.left);
-		SoundManager.Instance.PlaySound(AudioLibrary.Instance.EnemyProjectileClip);
 	}
 }

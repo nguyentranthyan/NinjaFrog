@@ -23,7 +23,7 @@ public class PlayerWallCling : PlayerStates
 
 	private void WallCling()
 	{
-		if(m_playerController.Conditions.IsCollidingBellow || m_playerController.Force.y > 0)
+		if(m_playerController.Conditions.IsCollidingBellow || m_playerController.Force.y >= 0)
 		{
 			return;
 		}
@@ -48,7 +48,7 @@ public class PlayerWallCling : PlayerStates
 
 			if (m_playerController.FacingRight)
 			{
-				if (m_horizontalInput <= -0.1f || m_horizontalInput < 0.1f)
+				if (m_horizontalInput <= -0.1f || m_horizontalInput <= 0.1f)
 				{
 					m_playerController.SetWallClingMultiplier(0f);
 					m_playerController.Conditions.IsWallCling = false;
@@ -56,7 +56,7 @@ public class PlayerWallCling : PlayerStates
 			}
 			else
 			{
-				if (m_horizontalInput >= 0.1f || m_horizontalInput > -0.1f)
+				if (m_horizontalInput >= 0.1f || m_horizontalInput >= -0.1f)
 				{
 					m_playerController.SetWallClingMultiplier(0f);
 					m_playerController.Conditions.IsWallCling = false;
@@ -67,6 +67,8 @@ public class PlayerWallCling : PlayerStates
 
 	public override void SetAnimation()
 	{
-		m_Animator.SetBool(WallClingAnim, m_playerController.Conditions.IsWallCling);
+		m_Animator.SetBool(WallClingAnim, m_playerController.Conditions.IsWallCling 
+											&&(m_playerController.Conditions.IsCollidingLeft 
+											|| m_playerController.Conditions.IsCollidingRight));
 	}
 }

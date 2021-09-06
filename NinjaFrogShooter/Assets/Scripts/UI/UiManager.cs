@@ -55,7 +55,7 @@ public class UiManager : Singleton<UiManager>
 
     private void OnPlayerGun(int m_projectileRemaining)
     {
-        ammoText.text = "Ammo: " + m_projectileRemaining + "v";
+        ammoText.text = " " + m_projectileRemaining + "v";
     }
 
     private void OnEnable()

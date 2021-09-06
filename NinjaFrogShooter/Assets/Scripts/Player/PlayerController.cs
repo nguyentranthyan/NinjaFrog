@@ -63,12 +63,12 @@ public class PlayerController : MonoBehaviour
 	void Start()
     {
         m_boxcolider2D = GetComponent<BoxCollider2D>();
-        m_conditions = new PlayerConditions();
+        m_conditions = gameObject.AddComponent<PlayerConditions>();
         m_conditions.Reset();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         ApplyGravity();
         StartMovement();
@@ -157,6 +157,7 @@ public class PlayerController : MonoBehaviour
 	#region RayCast Collision Bellow
     private void CollisionBellow()
 	{
+       
         Friction = 0f;
 
         if (m_movePosition.y < -0.0001f)
@@ -214,7 +215,7 @@ public class PlayerController : MonoBehaviour
 				{
                     m_movePosition.y = 0f;
 				}
-
+               
                 GameObject hitObject = hit.collider.gameObject;
 
                 if (hitObject.GetComponent<SpecialSurface>() != null)

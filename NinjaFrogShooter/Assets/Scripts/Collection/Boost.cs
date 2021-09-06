@@ -10,6 +10,7 @@ public class Boost : Collectable
 
 	public override void Collect()
 	{
+		SFXManager.Instance.ShowItemSparkle(this.gameObject.transform.position);
 		ApplyMovement();
 	}
 

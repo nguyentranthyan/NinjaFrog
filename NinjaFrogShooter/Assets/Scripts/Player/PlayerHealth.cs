@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : PlayerStates
 {
 	[Header("Setting")]
 	[SerializeField] private int lifes = 5;
@@ -19,20 +19,16 @@ public class PlayerHealth : MonoBehaviour
 	private void Awake()
 	{
 		m_maxLifes = lifes;
-	}
-
-	private void Start()
-	{
 		ResetLifes();
 	}
 
-	private void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.H))
-		{
-			LoseLifes();
-		}
-	}
+	//private void Update()
+	//{
+	//	if (Input.GetKeyDown(KeyCode.H))
+	//	{
+	//		LoseLifes();
+	//	}
+	//}
 
 	public void AddLifes()
 	{

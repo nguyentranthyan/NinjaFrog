@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleComponent : MonoBehaviour, IDamageable
+public class ObstacleComponent :  MonoBehaviour, IDamageable
 {
 	[Header("ObstacleComponent")]
 	[SerializeField] protected bool instanceKill;
-
+	
 	public virtual void Damage(PlayerMotor player)
 	{
 		if (player != null)
@@ -14,13 +14,11 @@ public class ObstacleComponent : MonoBehaviour, IDamageable
 			if (instanceKill)
 			{
 				//kill method
-				Camera2DShake.Instance.Shake();
 				player.GetComponent<PlayerHealth>().KillPlayer();
 				SoundManager.Instance.PlaySound(AudioLibrary.Instance.PlayerDeathClip);
 			}
 			else
 			{
-				Camera2DShake.Instance.Shake();
 				player.GetComponent<PlayerHealth>().LoseLifes();
 				SoundManager.Instance.PlaySound(AudioLibrary.Instance.PlayerHurtClip);
 			}
