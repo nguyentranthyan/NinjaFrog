@@ -17,6 +17,7 @@ public class PausedPanel : MonoBehaviour
 
 	public void OnButtonPausedClicked()
 	{
+		SoundManager.Instance.PlaySound(AudioLibrary.Instance.Btnpop);
 		if (!m_PausePanel.activeInHierarchy)
 		{
 			m_PausePanel.SetActive(true);
@@ -33,12 +34,14 @@ public class PausedPanel : MonoBehaviour
 
 	public void OnButtonHomeClicked()
 	{
+		SoundManager.Instance.PlaySound(AudioLibrary.Instance.Btnpop);
 		Time.timeScale = 1;
 		SceneManager.LoadScene(0);
 	}
 
 	public void OnButtonAudioClicked()
 	{
+		SoundManager.Instance.PlaySound(AudioLibrary.Instance.Btnpop);
 		if (!m_SettingSoundPanel.activeInHierarchy)
 		{
 			m_SettingSoundPanel.SetActive(true);
@@ -55,6 +58,7 @@ public class PausedPanel : MonoBehaviour
 
 	public void OnButtonInstructionCliked()
 	{
+		SoundManager.Instance.PlaySound(AudioLibrary.Instance.Btnpop);
 		if (!m_InstructionPanel.activeInHierarchy)
 		{
 			m_InstructionPanel.SetActive(true);

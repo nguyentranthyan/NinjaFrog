@@ -8,12 +8,9 @@ using System.Runtime.Serialization.Formatters.Binary;//RSFB help Serialization
 
 public class GameManager : Singleton<GameManager>
 {
-	public enum GameStates
+	public enum Item
 	{
-		GameStart,
-		LevelLoad,
-		LevelComleted,
-		GameOver
+		Coin, Enemy
 	}
 
 	#region HUD
@@ -28,20 +25,21 @@ public class GameManager : Singleton<GameManager>
 
 	[Header("Level")]
 	public static Action OnLoadNextLevel;
-	public GameStates GameState { get; set; }
 	public int CurrentLevelCompleted { get; set; }
+
+	private LevelManager levelManager;
 	#endregion
 
 	#region data
 	[Header("Data")]
 	[SerializeField] private int coinValue;
+	[SerializeField] private int enemyValue;
 	[SerializeField] private float maxTime; //max time allowed to complete the level
 
 	public GameData data; //work with gameData inspector
 	string dataFilePath; //path the data file 
 	BinaryFormatter bf; //Saving and loading to binary file
 	float timeLeft; //time left before the timer goes off
-	private PlayerMotor player;
 	#endregion
 
 	protected override void Awake()
@@ -50,18 +48,15 @@ public class GameManager : Singleton<GameManager>
 		bf = new BinaryFormatter();
 		dataFilePath = Application.persistentDataPath + "/game.dat";
 		Debug.Log(dataFilePath);
-
-		GameState = GameStates.GameStart;
 		timeLeft = maxTime;
 		InitialData();
 	}
 
-	private void LevelComplete(int levelIndex)
+	private void Start()
 	{
-		CurrentLevelCompleted = levelIndex;
-		GameState = GameStates.LevelComleted;
-		OnLoadNextLevel?.Invoke();
+		levelManager = GameObject.FindObjectOfType<LevelManager>();
 	}
+
 	// Update is called once per frame
 	void Update()
 	{
@@ -70,7 +65,6 @@ public class GameManager : Singleton<GameManager>
 			ResetData();
 		}
 		InternalJectpackUpdate();
-
 		if (timeLeft > 0)
 			UpdateTime();
 	}
@@ -134,12 +128,22 @@ public class GameManager : Singleton<GameManager>
 	{
 		data.coinCount += 1;
 		ui.txtCoinCount.text = "x " + data.coinCount;
-		UpdateScore(coinValue);
+		UpdateScore(Item.Coin);
 	}
 
-	public void UpdateScore(int value)
+	public void UpdateScore(Item item)
 	{
-		data.score += value;
+		int itemValue = 0;
+		switch (item)
+		{
+			case Item.Coin:
+				itemValue = coinValue;
+				break;
+			case Item.Enemy:
+				itemValue = enemyValue;
+				break;
+		}
+		data.score += itemValue;
 		ui.txtScore.text = "Score: " + data.score;
 	}
 
@@ -150,8 +154,9 @@ public class GameManager : Singleton<GameManager>
 
 		if (timeLeft <= 0)
 		{
+			SoundManager.Instance.PlaySound(AudioLibrary.Instance.Timeralarm);
 			ui.txtTime.text = "Time: 0";
-			LevelManager.Instance.PlayerDeath(player);
+			levelManager.GameOver();
 		}
 	}
 
@@ -161,7 +166,6 @@ public class GameManager : Singleton<GameManager>
 		switch (keyNumber)
 		{
 			case 0:
-				Debug.Log("0");
 				ui.imageKey0.sprite = ui.keyFull0;
 				break;
 			case 1:
@@ -188,7 +192,7 @@ public class GameManager : Singleton<GameManager>
 			data = (GameData)bf.Deserialize(fs);
 			ui.txtCoinCount.text = "x " + data.coinCount;
 			ui.txtScore.text = "Score: " + data.score;
-			Debug.Log("Num of coins " + data.coinCount);
+			//Debug.Log("Num of coins " + data.coinCount);
 			fs.Close();
 		}
 	}
@@ -217,7 +221,6 @@ public class GameManager : Singleton<GameManager>
 	{
 		PlayerHealth.OnLifesChange += OnPlayerLives;
 		Gun.OnAmmoChange += OnPlayerGun;
-		CoinManager.OnLevelComplete += LevelComplete;
 		Debug.Log("Data Loaded");
 		LoadData();
 	}
@@ -226,7 +229,6 @@ public class GameManager : Singleton<GameManager>
 	{
 		PlayerHealth.OnLifesChange -= OnPlayerLives;
 		Gun.OnAmmoChange -= OnPlayerGun;
-		CoinManager.OnLevelComplete -= LevelComplete;
 		Debug.Log("Data Save");
 		SaveData();
 	}

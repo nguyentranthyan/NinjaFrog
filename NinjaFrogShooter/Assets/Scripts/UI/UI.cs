@@ -30,5 +30,4 @@ public class UI
     public Sprite keyFull0;
     public Sprite keyFull1;
     public Sprite keyFull2;
-
 }

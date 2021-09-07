@@ -7,6 +7,7 @@ public class GameCompleteUI : MonoBehaviour
 {
 	public void OnButtonHomeClicked()
 	{
+		SoundManager.Instance.PlaySound(AudioLibrary.Instance.Btnpop);
 		SceneManager.LoadScene(0);
 	}
 }

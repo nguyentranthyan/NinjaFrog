@@ -18,8 +18,8 @@ public class BreakBoxItem : MonoBehaviour
             m_playerMotor = collision.gameObject.GetComponent<PlayerMotor>();
              animator.SetBool("Hit", true);
             StartCoroutine(IEDisableCollectable());
+            SoundManager.Instance.PlaySound(AudioLibrary.Instance.BreakCrates);
         }
-       
     }
 
     IEnumerator DropRateItem()

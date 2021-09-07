@@ -8,12 +8,12 @@ public class Key : Collectable
 
 	public override void Collect()
 	{
+		SoundManager.Instance.PlaySound(AudioLibrary.Instance.KeyFound);
 		SFXManager.Instance.ShowItemSparkle(this.gameObject.transform.position);
 		AddKey();
 	}
 	private void AddKey()
 	{
-		Debug.Log(keyNumber);
 		GameManager.Instance.UpdateKey(keyNumber);
 	}
 }

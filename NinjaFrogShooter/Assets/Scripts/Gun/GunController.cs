@@ -41,7 +41,7 @@ public class GunController : MonoBehaviour
 		{
             m_gunEquipp = Instantiate(newGun, m_holder.position, Quaternion.identity);
 			m_gunEquipp.GunController = this;
-            m_gunEquipp.transform.SetParent(m_holder);  
+            m_gunEquipp.transform.SetParent(m_holder);
 		}
     }
 }

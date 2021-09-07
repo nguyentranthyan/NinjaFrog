@@ -5,10 +5,9 @@ using UnityEngine;
 public class AITurret : MonoBehaviour
 {
 	private float waitedTime;
-	public float waitTimeToAttack = 3;
+	[SerializeField] private float waitTimeToAttack = 3;
 	[SerializeField] Animator animator;
 	[SerializeField] private bool facingRight;
-
 
 	[Header("Shooting")]
 	[SerializeField] private Transform firePoint;
@@ -40,13 +39,14 @@ public class AITurret : MonoBehaviour
 	public void LauchBullet()
 	{
 		//Get Object from pool
-		GameObject newProjectile = pooler.GetObjectToPool();
-		if (newProjectile == null) return;
-		newProjectile.transform.position = firePoint.position;
-		newProjectile.SetActive(true);
+		GameObject newbullet = pooler.GetObjectToPool();
+		if (newbullet == null) return;
+		newbullet.transform.position = firePoint.position;
+		newbullet.SetActive(true);
 
 		//Get projectile
-		Bullet bullet = newProjectile.GetComponent<Bullet>();
+		Bullet bullet = newbullet.GetComponent<Bullet>();
 		bullet.SetDirection(facingRight ? Vector3.right : Vector3.left);
+		SoundManager.Instance.PlaySound(AudioLibrary.Instance.EnemyProjectileClip);
 	}
 }

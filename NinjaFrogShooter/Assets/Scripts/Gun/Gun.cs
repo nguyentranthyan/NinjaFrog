@@ -9,6 +9,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private ProjectTile m_projectilePrefabs;
     [SerializeField] private Transform m_firePoint;
     [SerializeField] private Animator m_animator;
+    [SerializeField] private SpriteRenderer m_gunModel;
 
     [Header("Gun Setting")]
     [SerializeField] private float m_msBetweenShoots = 100;

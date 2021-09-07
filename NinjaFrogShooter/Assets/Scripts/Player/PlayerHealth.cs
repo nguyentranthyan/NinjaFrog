@@ -22,14 +22,6 @@ public class PlayerHealth : PlayerStates
 		ResetLifes();
 	}
 
-	//private void Update()
-	//{
-	//	if (Input.GetKeyDown(KeyCode.H))
-	//	{
-	//		LoseLifes();
-	//	}
-	//}
-
 	public void AddLifes()
 	{
 		m_currentLifes += 1;

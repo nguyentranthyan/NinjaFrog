@@ -9,6 +9,7 @@ public class EquippGun : Collectable
 
 	public override void Collect()
 	{
+		SoundManager.Instance.PlaySound(AudioLibrary.Instance.Powerup);
 		CollectGuns();
 		SFXManager.Instance.ShowGunSparkle(this.gameObject.transform.position);
 	}

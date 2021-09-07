@@ -140,11 +140,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 010bacc0e9b36b54781d815162c269fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpClip: {fileID: 8300000, guid: 86432d874458113429927d1a9145a401, type: 3}
+  breakCrates: {fileID: 8300000, guid: 6efd263ff77fddf4b846b655ee1cd4df, type: 3}
   collectableClip: {fileID: 8300000, guid: 23e066020f7cb4f4a939d3d4400e043b, type: 3}
-  projectileClip: {fileID: 8300000, guid: 38ea2ea77aabdb84e9b25771639023b6, type: 3}
-  enemyProjectileClip: {fileID: 8300000, guid: 63f55e10105a09e47ac3c044185a0b0e, type: 3}
-  playerDeathClip: {fileID: 8300000, guid: 9accd9e697c14e74782326fc41ea1b8e, type: 3}
-  playerHurtClip: {fileID: 8300000, guid: 1d136f3664308af49a27fbace157c486, type: 3}
+  keyFound: {fileID: 8300000, guid: 528d86ea558258f4da05fd7cc0db8ce0, type: 3}
+  powerup: {fileID: 8300000, guid: 3d36ae667341a1f458c73b68e22ce6e4, type: 3}
+  btnpop: {fileID: 8300000, guid: 679c13326ea374b4f8dbcfb168fa9c34, type: 3}
+  gameover: {fileID: 8300000, guid: 4bdf5a392f5034445a334336f44be39a, type: 3}
+  stageclear: {fileID: 8300000, guid: b9097b11954846045a5c31195349889e, type: 3}
+  timeralarm: {fileID: 8300000, guid: b99701481c9265143826427330593381, type: 3}
   enemyExplode: {fileID: 8300000, guid: 6e679e60879a2ee47a3c8b9cb73775f1, type: 3}
+  enemyHit: {fileID: 8300000, guid: 160b007a28ff3cf4088b6efb4fb352d1, type: 3}
+  enemyProjectileClip: {fileID: 8300000, guid: db8d73e6fa7928e4eb07ee4747e1b99d, type: 3}
+  jumpClip: {fileID: 8300000, guid: 415e22cbf376c604eb180b8ba1ba1749, type: 3}
+  playerDeathClip: {fileID: 8300000, guid: e280b0891df09e4498683e6ab11315ed, type: 3}
+  playerHurtClip: {fileID: 8300000, guid: 9accd9e697c14e74782326fc41ea1b8e, type: 3}
+  projectileClip: {fileID: 8300000, guid: 38ea2ea77aabdb84e9b25771639023b6, type: 3}
   projectileCollisionClip: {fileID: 8300000, guid: ace0a003834d3154aa049b5f18ddc954, type: 3}

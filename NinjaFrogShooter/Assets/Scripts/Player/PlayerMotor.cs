@@ -34,9 +34,4 @@ public class PlayerMotor : MonoBehaviour
 	{
         transform.position = newPosition.position;
 	}
-
-	internal void SpawnPlayer(Vector2 lastCheckPointPos)
-	{
-		throw new NotImplementedException();
-	}
 }

@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class EnemyDamage : ObstacleComponent
 {
-	[SerializeField] private Animator animator;
+	//[SerializeField] private Animator animator;
 
 	private void Collision(Collider2D objectCollided)
 	{
 		if (objectCollided.GetComponent<EnemyDamage>() != null)
 		{
 			objectCollided.gameObject.SetActive(false);
+			GameManager.Instance.UpdateScore(GameManager.Item.Enemy);
 			SoundManager.Instance.PlaySound(AudioLibrary.Instance.EnemyExplode);
 		}
 	}
