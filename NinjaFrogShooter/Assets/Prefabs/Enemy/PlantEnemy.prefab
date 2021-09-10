@@ -143,6 +143,9 @@ MonoBehaviour:
   animator: {fileID: 7317752617736716433}
   facingRight: 0
   firePoint: {fileID: 7317752618736769381}
+  chaseRadius: 6
+  attackRadius: 4
+  canfire: 0
   pooler: {fileID: 7317752617736716435}
 --- !u!95 &7317752617736716433
 Animator:

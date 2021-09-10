@@ -9,5 +9,6 @@ public class GameData
 	public int coinCount;
 	public int score;
 	public bool[] keyfound;
+	public LevelData[] levelDatas;
 	public bool isFirst;
 }

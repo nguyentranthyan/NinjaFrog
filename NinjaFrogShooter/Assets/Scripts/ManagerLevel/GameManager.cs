@@ -24,9 +24,8 @@ public class GameManager : Singleton<GameManager>
 	public Vector2 lastCheckPointPos;
 
 	[Header("Level")]
-	public static Action OnLoadNextLevel;
-	public int CurrentLevelCompleted { get; set; }
-
+	//public static Action OnLoadNextLevel;
+	public GameObject levelCompleteMenu;
 	private LevelManager levelManager;
 	#endregion
 
@@ -48,22 +47,22 @@ public class GameManager : Singleton<GameManager>
 		bf = new BinaryFormatter();
 		dataFilePath = Application.persistentDataPath + "/game.dat";
 		Debug.Log(dataFilePath);
-		timeLeft = maxTime;
-		InitialData();
 	}
 
 	private void Start()
 	{
+		DataManager.instance.RefreshData();
+		data = DataManager.instance.data;
+		RefreshUI();
+		timeLeft = maxTime;
 		levelManager = GameObject.FindObjectOfType<LevelManager>();
+		lastCheckPointPos = levelManager.LevelStartPoint.position;
+		InitialData();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			ResetData();
-		}
 		InternalJectpackUpdate();
 		if (timeLeft > 0)
 			UpdateTime();
@@ -156,6 +155,7 @@ public class GameManager : Singleton<GameManager>
 		{
 			SoundManager.Instance.PlaySound(AudioLibrary.Instance.Timeralarm);
 			ui.txtTime.text = "Time: 0";
+			DataManager.instance.SaveData(data);
 			levelManager.GameOver();
 		}
 	}
@@ -177,52 +177,40 @@ public class GameManager : Singleton<GameManager>
 		}
 	}
 
-	public void SaveData()
+	public void RefreshUI()
 	{
-		FileStream fs = new FileStream(dataFilePath, FileMode.Create);
-		bf.Serialize(fs, data);
-		fs.Close();
+		ui.txtCoinCount.text = "x " + data.coinCount;
+		ui.txtScore.text = "Score: " + data.score;
 	}
-
-	public void LoadData()
-	{
-		if (File.Exists(dataFilePath))
-		{
-			FileStream fs = new FileStream(dataFilePath, FileMode.Open);
-			data = (GameData)bf.Deserialize(fs);
-			ui.txtCoinCount.text = "x " + data.coinCount;
-			ui.txtScore.text = "Score: " + data.score;
-			//Debug.Log("Num of coins " + data.coinCount);
-			fs.Close();
-		}
-	}
-
-	public void ResetData()
-	{
-		FileStream fs = new FileStream(dataFilePath, FileMode.Create);
-		//Reset all data Items
-		data.coinCount = 0;
-		data.score = 0;
-
-		for(int keyNumber = 0; keyNumber <= 2; keyNumber++)
-		{
-			data.keyfound[keyNumber] = false;
-		}
-
-		bf.Serialize(fs, data);
-		ui.txtCoinCount.text = "x 0";
-		ui.txtScore.text = "Score: 0";
-		Debug.Log("Data Reset");
-		fs.Close();
-	}
-
 	#endregion
+
+	#region Level
+	public int GetScore()
+	{
+		return data.score;
+	}
+
+	public void SetStarsAwarded(int levelNumber, int numOfStar)
+	{
+		data.levelDatas[levelNumber].starsAwarded = numOfStar;
+	}
+	
+	public void UnlockLevel(int levelNumber)
+	{
+		data.levelDatas[levelNumber].isUnlocked = true;
+	}
+	public void LevelComplete()
+	{
+		levelCompleteMenu.SetActive(true);
+	}
+	#endregion
+
 	private void OnEnable()
 	{
 		PlayerHealth.OnLifesChange += OnPlayerLives;
 		Gun.OnAmmoChange += OnPlayerGun;
 		Debug.Log("Data Loaded");
-		LoadData();
+		RefreshUI();
 	}
 
 	private void OnDisable()
@@ -230,6 +218,6 @@ public class GameManager : Singleton<GameManager>
 		PlayerHealth.OnLifesChange -= OnPlayerLives;
 		Gun.OnAmmoChange -= OnPlayerGun;
 		Debug.Log("Data Save");
-		SaveData();
+		DataManager.instance.SaveData(data);
 	}
 }

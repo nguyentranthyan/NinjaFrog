@@ -7,6 +7,8 @@ public class PlayerHealth : PlayerStates
 {
 	[Header("Setting")]
 	[SerializeField] private int lifes = 5;
+	private Animator anim;
+
 	private int m_maxLifes;
 	private int m_currentLifes;
 	public int MaxLife => m_maxLifes;
@@ -20,6 +22,11 @@ public class PlayerHealth : PlayerStates
 	{
 		m_maxLifes = lifes;
 		ResetLifes();
+	}
+
+	private void Start()
+	{
+		anim = GetComponent<Animator>();
 	}
 
 	public void AddLifes()
@@ -41,6 +48,7 @@ public class PlayerHealth : PlayerStates
 			OnDeath?.Invoke(gameObject.GetComponent<PlayerMotor>());
 		}
 		UpdateLifesUI();
+		anim.SetTrigger("Hit");
 		SoundManager.Instance.PlaySound(AudioLibrary.Instance.PlayerHurtClip);
 	}
 
@@ -49,6 +57,7 @@ public class PlayerHealth : PlayerStates
 		m_currentLifes = 0;
 		OnDeath?.Invoke(gameObject.GetComponent<PlayerMotor>());
 		UpdateLifesUI();
+		anim.SetTrigger("Hit");
 		SoundManager.Instance.PlaySound(AudioLibrary.Instance.PlayerDeathClip);
 	}
 

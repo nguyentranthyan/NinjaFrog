@@ -46,6 +46,7 @@ MonoBehaviour:
   ui:
     txtCoinCount: {fileID: 0}
     txtScore: {fileID: 0}
+    txtTime: {fileID: 0}
     fuelImage: {fileID: 0}
     fuelText: {fileID: 0}
     playerLifes:
@@ -62,8 +63,13 @@ MonoBehaviour:
     keyFull1: {fileID: 21300000, guid: 47cf76cfeb78a4ea383c4904c0260cca, type: 3}
     keyFull2: {fileID: 21300000, guid: cd2df7022edc44cea9d4ddbe9064a7d2, type: 3}
   lastCheckPointPos: {x: 0, y: 0}
+  levelCompleteMenu: {fileID: 0}
   coinValue: 10
+  enemyValue: 20
+  maxTime: 180
   data:
     coinCount: 0
     score: 0
     keyfound: 000000
+    levelDatas: []
+    isFirst: 0

@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    [Header("Spawn Point")]
-    [SerializeField] private Transform spawnPoint;
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.CompareTag("Player"))
+		{
+			Invoke(nameof(ShowLevelCompleteMenu), 2f);
+		}
+	}
 
-    public Transform SpawnPoint => spawnPoint;
+	public void ShowLevelCompleteMenu()
+	{
+		GameManager.Instance.LevelComplete();
+	}
 }

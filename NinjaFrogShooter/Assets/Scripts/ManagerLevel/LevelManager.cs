@@ -15,7 +15,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Transform levelStartPoint;
     [SerializeField] private GameObject playerPrefabs;
 
-	[Header("Panel")]
+    public Transform LevelStartPoint => levelStartPoint;
+
+    [Header("Panel")]
 	public GameObject panelGameOver;
 	public GameObject panelRevive;
 	[SerializeField] private Slider timeSlider;
@@ -30,6 +32,8 @@ public class LevelManager : MonoBehaviour
     /// </summary>
 	private void Awake()
 	{
+        timeSlider.maxValue = timeRevive;
+        timeSlider.value = timeRevive;
         SpawnPlayer(playerPrefabs);
     }
 
@@ -37,30 +41,24 @@ public class LevelManager : MonoBehaviour
 	{
         OnPlayerSpawn?.Invoke(m_currentPlayer);
         stopTimer = false;
-        timeSlider.maxValue = timeRevive;
-        timeSlider.value = timeRevive;
+        revived = false;
     }
 
 	private void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.Space))
-        {
-            RevivePlayer();
-        }
-
 		if (panelRevive.activeInHierarchy)
 		{
-            float time = timeRevive - Time.time;
-            if (time <= 0)
+           timeRevive-= Time.deltaTime;
+            if (timeRevive <= 0)
             {
                 SoundManager.Instance.PlaySound(AudioLibrary.Instance.Timeralarm);
                 stopTimer = true;
-                OnGameOver?.Invoke();
+                Invoke(nameof(GameOver), 1f);
             }
             else
             {
                 stopTimer = false;
-                timeSlider.value = time;
+                timeSlider.value = timeRevive;
             }
         }
     }
@@ -87,8 +85,7 @@ public class LevelManager : MonoBehaviour
 	{
 		if (revived)
 		{
-            OnGameOver?.Invoke();
-
+            Invoke(nameof(GameOver), 1f);
         }
 		else
 		{
@@ -129,7 +126,7 @@ public class LevelManager : MonoBehaviour
     public void PlayerDeath(PlayerMotor player)
     {
         m_currentPlayer.gameObject.SetActive(false);
-        GameManager.Instance.SaveData();
+        DataManager.instance.SaveData(GameManager.instance.data);
         YouWantToRevive();
     }
 

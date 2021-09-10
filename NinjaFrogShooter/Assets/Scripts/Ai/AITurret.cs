@@ -11,7 +11,10 @@ public class AITurret : MonoBehaviour
 
 	[Header("Shooting")]
 	[SerializeField] private Transform firePoint;
-
+	[SerializeField] private float chaseRadius;
+	[SerializeField] private float attackRadius;
+	private Transform target;
+	[SerializeField] private bool canfire;
 	///// <summary>
 	///// Reference player
 	///// </summary>
@@ -22,20 +25,54 @@ public class AITurret : MonoBehaviour
 	/// </summary>
 	public ObjectPool pooler;
 
-	private void Update()
+	public void Start()
 	{
-		if (waitedTime <= 0)
+		target = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMotor>().transform;
+		canfire = false;
+	}
+
+	private void FixedUpdate()
+	{
+		CheckDistance();
+		if (canfire)
 		{
-			waitedTime = waitTimeToAttack;
-			animator.SetTrigger("Attack");
-			Invoke("LauchBullet", 0.5f);
-		}
-		else
-		{
-			waitedTime -= Time.deltaTime;
+			Reload();
 		}
 	}
 
+	/// <summary>
+	/// Check distance player and enemy
+	/// </summary>
+	public virtual void CheckDistance()
+	{
+		float distance = Vector3.Distance(target.position, transform.position);
+		Debug.DrawLine(target.position, transform.position);
+		if (distance <= chaseRadius && distance > attackRadius)
+		{
+			canfire = true;
+		}
+		else if (distance > chaseRadius)
+		{
+			canfire = false;
+		}
+	}
+
+	void Reload()
+	{
+		if (target != null)
+		{
+			if (waitedTime <= 0)
+			{
+				waitedTime = waitTimeToAttack;
+				animator.SetBool("Attack", true);
+				Invoke(nameof(LauchBullet), 0.5f);
+			}
+			else
+			{
+				waitedTime -= Time.deltaTime;
+			}
+		}
+	}
 	public void LauchBullet()
 	{
 		//Get Object from pool

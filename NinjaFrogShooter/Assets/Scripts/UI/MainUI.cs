@@ -7,15 +7,13 @@ public class MainUI : MonoBehaviour
 {
 	public GameObject panelAbout;
 
-	public void OnButtonStartClicked()
+	public void OnButtonStartClicked(string nameScene)
 	{
-		SoundManager.Instance.PlaySound(AudioLibrary.Instance.Btnpop);
-		SceneManager.LoadScene(1);
+		SceneManager.LoadScene(nameScene);
 	}
 
 	public void OnButtonAboutClicked()
 	{
-		SoundManager.Instance.PlaySound(AudioLibrary.Instance.Btnpop);
 		if (!panelAbout.activeInHierarchy)
 		{
 			panelAbout.SetActive(true);
@@ -24,7 +22,6 @@ public class MainUI : MonoBehaviour
 
 	public void OnButtonCloseAboutClicked()
 	{
-		SoundManager.Instance.PlaySound(AudioLibrary.Instance.Btnpop);
 		if (panelAbout.activeInHierarchy)
 		{
 			panelAbout.SetActive(false);
@@ -33,7 +30,6 @@ public class MainUI : MonoBehaviour
 
 	public void OnButtonQuitClicked()
 	{
-		SoundManager.Instance.PlaySound(AudioLibrary.Instance.Btnpop);
 		Application.Quit();
 	}
 }
